@@ -17,4 +17,4 @@ https://github.com/bnm91/GroupmeClient-python
 
 ## License
 
-MIT License, do whatever you want with it, idc
+[MIT License](https://choosealicense.com/licenses/mit/), do whatever you want with it, idc
