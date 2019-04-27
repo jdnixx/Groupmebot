@@ -16,6 +16,8 @@ app = Flask(__name__)
 def webhook():
     data = request.get_json()
 
+    print(data)
+
     if data['name'] != "Groupmebot":
         # msg = 'You (name={}) sent "{}"'.format(data['name'], data['text'])
         # send_message(msg)
