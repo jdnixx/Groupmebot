@@ -45,6 +45,7 @@ def incoming_message(data):
 def respond_rideoncowboy():
     resp = "Hell Yeah, brother"
     resp2 = "*takes swig of Busch Lite*"
+    print("respond_rideoncowboy should be working...")
     c.makeCall('bots', 'Post', text=resp)
     c.makeCall('bots', 'Post', text=resp2)
     # c.makeCall('messages', 'Create', groupId=GROUP_ID, text=resp)
