@@ -21,7 +21,7 @@ def webhook():
     print(data['name'])
     print(type(data['name']))
 
-    if data['name'] != "Groupmebot":
+    if data['name'] != "firstblood":
         # msg = 'You (name={}) sent "{}"'.format(data['name'], data['text'])
         # send_message(msg)
         bot.incoming_message(data)
