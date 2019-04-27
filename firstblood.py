@@ -25,7 +25,7 @@ line 2 | (optional) Bot ID
 TOKEN = os.environ.get('TOKEN')
 BOTID = os.environ.get('BOT_ID')
 
-c = GroupmeClient.client.Client(TOKEN)
+c = GroupmeClient.client.Client(TOKEN, BOTID)
 
 # groupz = c.makeCall("groups", "GetAllGroups")
 # print(groupz)
