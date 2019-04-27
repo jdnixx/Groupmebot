@@ -9,7 +9,10 @@ class Command:
         self.accessToken = groupmeAccessToken
         print("Command init: groupmeAccessToken ="+groupmeAccessToken)
         self.URL_BASE = 'https://api.groupme.com/v3'
-        self.TOKEN_QUERY_STRING = '?token=' + self.accessToken
+        if len(self.accessToken) == 26:
+            self.TOKEN_QUERY_STRING = '?bot_id=' + self.accessToken
+        else:
+            self.TOKEN_QUERY_STRING = '?token=' + self.accessToken
         
     def createUrl(self):
         return self.url

@@ -24,8 +24,9 @@ line 2 | (optional) Bot ID
 #     print(TOKEN, BOTID)
 TOKEN = os.environ.get('TOKEN')
 BOTID = os.environ.get('BOT_ID')
+BOTID='70a48026c906f425a1e86717fb'
 
-c = GroupmeClient.client.Client(TOKEN, BOTID)
+c = GroupmeClient.client.Client(TOKEN, botid=BOTID)
 
 # groupz = c.makeCall("groups", "GetAllGroups")
 # print(groupz)
@@ -50,3 +51,5 @@ def respond_rideoncowboy():
     c.makeCall('bots', 'Post', text=resp2)
     c.makeCall('messages', 'Create', groupId=GROUP_ID, text=resp)
     # c.makeCall('messages', 'Create', groupId=GROUP_ID, text=resp2)
+
+respond_rideoncowboy()

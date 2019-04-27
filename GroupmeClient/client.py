@@ -10,9 +10,9 @@ from .ApiWrapper import botCommands
 
 class Client(object):
 
-    def __init__(self, groupmeAccessToken, botid):
+    def __init__(self, groupmeAccessToken, botid=None):
         self.accessToken = groupmeAccessToken
-        self.botid = botid
+        self.accessToken = botid
 
     def makeCall(self, groupmeObject, call, **kwargs):
         '''
@@ -52,7 +52,7 @@ class Client(object):
             return getattr(messagesCommands, call)(self.accessToken, **kwargs).makeCall() #do not have to explicitly pass groupId b/c it's in kwargs under the same name
 
         if groupmeObject == 'bots':
-            return getattr(botCommands, call)(self.botid, **kwargs).makeCall()
+            return getattr(botCommands, call)(self.accessToken, **kwargs).makeCall()
         
         return 'error'
             
