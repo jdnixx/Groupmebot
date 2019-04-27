@@ -19,12 +19,12 @@ class Command:
 
     def makeCall(self):
         if self.requestType == 'POST':
-            print(self.load)
-            newcreateUrl = self.createUrl()
-            newload = self.createLoad()
-            print(newcreateUrl)
-            print(newload)
-            return requests.post(newcreateUrl, json = newload)
+            print("Command makeCall: self.load="+str(self.load))
+            self.newCreateUrl = self.createUrl()
+            self.newload = self.createLoad()
+            print("Command makeCall: self.newCreateUrl=" + str(self.newCreateUrl))
+            print("Command makeCall: self.newload="+str(self.newload))
+            return requests.post(self.newCreateUrl, json = self.newload)
             # return requests.post(self.createUrl(), json = self.createLoad())
         elif self.requestType == 'GET':
             return requests.get(self.createUrl())
