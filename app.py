@@ -17,6 +17,9 @@ def webhook():
     data = request.get_json()
 
     print(data)
+    print(type(data))
+    print(data['name'])
+    print(type(data['name']))
 
     if data['name'] != "Groupmebot":
         # msg = 'You (name={}) sent "{}"'.format(data['name'], data['text'])
