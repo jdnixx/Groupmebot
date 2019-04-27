@@ -40,6 +40,12 @@ def incoming_message(data):
     """
     if data['text'] == "ride on cowboy":
         respond_rideoncowboy()
+    if data['text'] == "jeremy is a":
+        jeremyisa()
+    if data['text'].startswith('echo'):
+        echo(data['text'])
+
+
 
 
 def respond_rideoncowboy():
@@ -48,7 +54,15 @@ def respond_rideoncowboy():
     print("respond_rideoncowboy should be working...")
     c.makeCall('bots', 'Post', text=resp)
     c.makeCall('bots', 'Post', text=resp2)
-    c.makeCall('messages', 'Create', groupId=GROUP_ID, text=resp)
+    # c.makeCall('messages', 'Create', groupId=GROUP_ID, text=resp)
     # c.makeCall('messages', 'Create', groupId=GROUP_ID, text=resp2)
 
-respond_rideoncowboy()
+def jeremyisa():
+    c.makeCall('bots', 'Post', text='PEEPEEPOOPOOOOOO')
+
+def echo(t):
+    indexofx = t.find('x')
+    multiplier = int(t[5:indexofx])
+    text = t[indexofx+2:]
+    for i in range(multiplier):
+        c.makeCall('bots', 'Post', text=text)
