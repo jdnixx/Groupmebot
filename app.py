@@ -8,13 +8,13 @@ Flask parts were made almost entirely with this tutorial:
 http://www.apnorton.com/blog/2017/02/28/How-I-wrote-a-Groupme-Chatbot-in-24-hours/
 """
 import firstblood as bot
-from flask import Flask, Request
+from flask import Flask, request
 app = Flask(__name__)
 
 
 @app.route("/", methods=['POST','GET'])
 def webhook():
-    data = Request.get_json()
+    data = request.get_json()
 
     if data['name'] != "Groupmebot":
         # msg = 'You (name={}) sent "{}"'.format(data['name'], data['text'])
