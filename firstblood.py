@@ -16,7 +16,7 @@ Keyfile can have 2 lines, containing:
 line 1 | Groupme Access Token
 line 2 | (optional) Bot ID
 """
-PATH_TO_KEYFILE = "..\groupme_keys.txt"     # assumes keyfile is in parent dir
+PATH_TO_KEYFILE = "../groupme_keys.txt"     # assumes keyfile is in parent dir
 
 with open(PATH_TO_KEYFILE, "r") as f:
     TOKEN = f.readline().strip()
