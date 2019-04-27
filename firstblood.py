@@ -24,7 +24,6 @@ line 2 | (optional) Bot ID
 #     print(TOKEN, BOTID)
 TOKEN = os.environ.get('TOKEN')
 BOTID = os.environ.get('BOT_ID')
-BOTID='70a48026c906f425a1e86717fb'
 
 c = GroupmeClient.client.Client(TOKEN, botid=BOTID)
 
