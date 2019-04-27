@@ -7,6 +7,7 @@ class Command:
         self.load = {}
         self.requestType = requestType
         self.accessToken = groupmeAccessToken
+        print("Command init: groupmeAccessToken ="+groupmeAccessToken)
         self.URL_BASE = 'https://api.groupme.com/v3'
         self.TOKEN_QUERY_STRING = '?token=' + self.accessToken
         

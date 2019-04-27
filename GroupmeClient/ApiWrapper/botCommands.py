@@ -16,9 +16,12 @@ class Post(Command):
         self.args = kwargs
         self.text = text
         self.picture_url = picture_url
+        print("Post init: botidAccessToken ="+botidAccessToken)
+
         super(Post, self).__init__(botidAccessToken, 'POST')
 
     def createUrl(self):
+        print("Post createUrl: self.TOKEN_QUERY_STRING="+self.TOKEN_QUERY_STRING)
         return self.URL_BASE + '/bots' + '/post' + self.TOKEN_QUERY_STRING
 
     def createLoad(self):
@@ -30,4 +33,6 @@ class Post(Command):
         return load
 
     def makeCall(self):
+        print("Post createUrl: self.TOKEN_QUERY_STRING=" + self.TOKEN_QUERY_STRING)
+        print("Post createUrl: self.accessToken=" + self.accessToken)
         return super(Post, self).makeCall()
