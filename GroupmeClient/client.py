@@ -2,14 +2,17 @@ from .ApiWrapper import groupCommands
 from .ApiWrapper import membersCommands
 from .ApiWrapper import messagesCommands
 from .ApiWrapper import userCommands
+
+from .ApiWrapper import botCommands
 # from config import config
 
 
 
 class Client(object):
 
-    def __init__(self, groupmeAccessToken):
+    def __init__(self, groupmeAccessToken, botid):
         self.accessToken = groupmeAccessToken
+        self.botid = botid
 
     def makeCall(self, groupmeObject, call, **kwargs):
         '''
@@ -47,6 +50,9 @@ class Client(object):
             
         if groupmeObject == 'messages':
             return getattr(messagesCommands, call)(self.accessToken, **kwargs).makeCall() #do not have to explicitly pass groupId b/c it's in kwargs under the same name
+
+        if groupmeObject == 'bots':
+            return getattr(botCommands, call)(self.botid, **kwargs).makeCall()
         
         return 'error'
             

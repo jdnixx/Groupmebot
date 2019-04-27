@@ -23,6 +23,7 @@ line 2 | (optional) Bot ID
 #     BOTID = f.readline().strip()
 #     print(TOKEN, BOTID)
 TOKEN = os.environ.get('TOKEN')
+BOTID = os.environ.get('BOT_ID')
 
 c = GroupmeClient.client.Client(TOKEN)
 
