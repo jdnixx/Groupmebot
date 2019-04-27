@@ -33,6 +33,6 @@ class Post(Command):
         return load
 
     def makeCall(self):
-        print("Post createUrl: self.TOKEN_QUERY_STRING=" + self.TOKEN_QUERY_STRING)
-        print("Post createUrl: self.accessToken=" + self.accessToken)
+        print("Post makeCall: self.TOKEN_QUERY_STRING=" + self.TOKEN_QUERY_STRING)
+        print("Post makeCall: self.accessToken=" + self.accessToken)
         return super(Post, self).makeCall()
