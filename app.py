@@ -24,21 +24,10 @@ def webhook():
     return "ok", 200
 
 
-# Now simply call app.run() from outside this class to start the server
-
-
-
-
-
-
-
-
-
-### OLD CODE ###
 # (use for debugging; GET only)
 # @app.route("/")
 # def hello():
 #     return "Hello world!"
-#
-# if __name__ == '__main__':
-#     app.run()
+
+if __name__ == '__main__':
+    app.run()
