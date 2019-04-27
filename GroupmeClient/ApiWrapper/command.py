@@ -19,6 +19,7 @@ class Command:
 
     def makeCall(self):
         if self.requestType == 'POST':
+            print(self.load)
             return requests.post(self.createUrl(), json = self.createLoad())
         elif self.requestType == 'GET':
             return requests.get(self.createUrl())
