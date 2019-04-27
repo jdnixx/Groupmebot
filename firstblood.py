@@ -4,27 +4,31 @@ FIRSTBLOOD - first GroupMe API bot
 Mostly for testing API connectivity & commands
 """
 
-# from GroupmeClient.client import Client as RestClient
+import GroupmeClient.client
+
+
+GROUP_ID = 12375272     # nerd chat
 
 """
 Client setup
 ---
-Keyfile must have one line - consisting of the Groupme Access Token
+Keyfile can have 2 lines, containing:
+line 1 | Groupme Access Token
+line 2 | (optional) Bot ID
 """
-GROUP_ID = 12375272
-PATH_TO_KEYFILE = "../groupme_keys.txt"     # assumes keyfile is in parent dir
+PATH_TO_KEYFILE = "..\groupme_keys.txt"     # assumes keyfile is in parent dir
 
 with open(PATH_TO_KEYFILE, "r") as f:
-    token = f.readline().strip()
-    print(token)
-# c = RestClient(token)
-
+    TOKEN = f.readline().strip()
+    BOTID = f.readline().strip()
+    print(TOKEN, BOTID)
+c = GroupmeClient.client.Client(TOKEN)
 
 # groupz = c.makeCall("groups", "GetAllGroups")
 # print(groupz)
 
 
-def new_message(data):
+def incoming_message(data):
     """
     Main method invoked when a new message arrives from the group.
     The (flask) app receives a POST with the new message, and it is immediately sent here
@@ -32,10 +36,11 @@ def new_message(data):
     :return:
     """
     if data['text'] == "ride on cowboy":
-        respond_rideoncowboy(data)
+        respond_rideoncowboy()
 
 
-def respond_rideoncowboy(data)
+def respond_rideoncowboy():
     resp = "Hell Yeah, brother"
     resp2 = "*takes swig of Busch Lite*"
-
+    c.makeCall('messages', 'Create', groupId=GROUP_ID, text=resp)
+    c.makeCall('messages', 'Create', groupId=GROUP_ID, text=resp2)

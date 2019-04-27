@@ -1,1 +1,1 @@
-worker: python3 firstblood.py
+web: gunicorn app:app --log-file=-

@@ -19,13 +19,10 @@ def webhook():
     if data['name'] != "Groupmebot":
         # msg = 'You (name={}) sent "{}"'.format(data['name'], data['text'])
         # send_message(msg)
-        bot.new_message(data)
+        bot.incoming_message(data)
 
     return "ok", 200
 
-
-def data_response(data):
-    return data
 
 # Now simply call app.run() from outside this class to start the server
 
