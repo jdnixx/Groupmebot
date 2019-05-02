@@ -5,6 +5,7 @@ Mostly for testing API connectivity & commands
 """
 import os
 import GroupmeClient.client
+from ..TradingViewScreenshot import tvchartbot
 
 
 GROUP_ID = 12375272     # nerd chat
@@ -63,8 +64,8 @@ def jeremyisa():
 def echo(t):
     indexofx = t.find('x')
     multiplier = int(t[5:indexofx])
-    if multiplier > 20:
-        multiplier = 20     # cap the number of repeats at 20x
+    if multiplier > 10:
+        multiplier = 10     # cap the number of repeats at 20x
     text = t[indexofx+2:]
     for i in range(multiplier):
         c.makeCall('bots', 'Post', text=text)
