@@ -8,7 +8,6 @@ import os
 from ApiClient.client import GroupMeApiClient
 # from ..TradingViewScreenshot import tvchartbot
 
-
 GROUP_ID = 12375272     # nerd chat
 
 """
@@ -35,7 +34,8 @@ BOT_ID
 """
 TOKEN = os.environ.get('TOKEN')
 BOTID = os.environ.get('BOT_ID')
-c = GroupMeApiClient(BOTID)
+
+c = GroupMeApiClient(TOKEN, BOTID)
 
 
 def incoming_message(data):
@@ -90,3 +90,15 @@ def echo(t):
     for i in range(multiplier):
         c.postfrombot(text)
         # c.makeCall('bots', 'Post', text=text)
+
+
+def postpic(filename):
+    """
+    Uploads & posts a picture, with its filename as the parameter.
+    Picture file must be in same directory as firstblood.py.
+    :param filename: string, the filename of the desired image to be posted
+    :return:
+    """
+    with open(filename, 'rb') as picfile:
+        url = c.get_pic_upload_url(picfile)
+        return c.postfrombot(" ", picture_url=url)
