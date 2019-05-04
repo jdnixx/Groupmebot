@@ -2,9 +2,11 @@ import requests
 
 class Command:
 
+
     def __init__(self, groupmeAccessToken, requestType):
         self.url = ''
         self.load = {}
+
         self.requestType = requestType
         self.accessToken = groupmeAccessToken
         print("Command init: groupmeAccessToken ="+groupmeAccessToken)
@@ -23,10 +25,12 @@ class Command:
     def makeCall(self):
         if self.requestType == 'POST':
             print("Command makeCall: self.load="+str(self.load))
+            #
             self.newCreateUrl = self.createUrl()
             self.newload = self.createLoad()
             print("Command makeCall: self.newCreateUrl=" + str(self.newCreateUrl))
             print("Command makeCall: self.newload="+str(self.newload))
+            #
             return requests.post(self.newCreateUrl, json = self.newload)
             # return requests.post(self.createUrl(), json = self.createLoad())
         elif self.requestType == 'GET':

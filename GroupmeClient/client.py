@@ -15,28 +15,6 @@ class Client(object):
         self.accessToken = botid
 
     def makeCall(self, groupmeObject, call, **kwargs):
-        '''
-        Currently implemented calls, by groupmeObject\n
-        \n
-        users
-            Get
-        groups
-            GetAllGroups
-            Former
-            GetSingleGroup
-            Create
-            Update
-            Destroy
-        members
-            Add
-            Remove
-            Update
-        messages
-            Get
-            Create
-            Like
-
-        '''
 
         if  groupmeObject == 'users':
             return getattr(userCommands, call)(self.accessToken, **kwargs).makeCall()
@@ -57,7 +35,28 @@ class Client(object):
         return 'error'
             
 
+'''
+Currently implemented calls, by groupmeObject\n
+\n
+users
+    Get
+groups
+    GetAllGroups
+    Former
+    GetSingleGroup
+    Create
+    Update
+    Destroy
+members
+    Add
+    Remove
+    Update
+messages
+    Get
+    Create
+    Like
 
+'''
 
 
 
