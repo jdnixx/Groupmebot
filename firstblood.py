@@ -6,7 +6,7 @@ Mostly for testing API connectivity & commands
 import os
 # import GroupmeClient.client
 from ApiClient.client import GroupMeApiClient
-from ..TradingViewScreenshot import tvchartbot
+# from ..TradingViewScreenshot import tvchartbot
 
 
 GROUP_ID = 12375272     # nerd chat
