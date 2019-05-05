@@ -6,7 +6,7 @@ Mostly for testing API connectivity & commands
 import os
 # import GroupmeClient.client
 from ApiClient.client import GroupMeApiClient
-# from ..TradingViewScreenshot import tvchartbot
+from TradingViewScreenshotTesting.tvchartbot import TradingViewScraper
 
 GROUP_ID = 12375272     # nerd chat
 
@@ -37,6 +37,8 @@ BOTID = os.environ.get('BOT_ID')
 
 c = GroupMeApiClient(TOKEN, BOTID)
 
+tvbot = TradingViewScraper()
+
 
 def incoming_message(data):
     """
@@ -45,14 +47,21 @@ def incoming_message(data):
     :param data: dict of JSON data from GroupMe API's POST request
     :return:
     """
+    # parse message
+    msg = data['text'].strip().lower()
+
     # simple mirror response commands
-    if data['text'] == "ride on cowboy":
+    if msg == "ride on cowboy":
         respond_rideoncowboy()
-    if data['text'] == "jeremy is a":
+    if msg == "jeremy is a":
         jeremyisa()
     # echo command
-    if data['text'].startswith('echo'):
+    if msg.startswith('echo'):
         echo(data['text'])
+    # Tradingview Chart screenshot
+    if msg.startswith('c '):
+        chart(data['text'])
+
 
 
 
@@ -75,30 +84,39 @@ def jeremyisa():
     # c.makeCall('bots', 'Post', text='PEEPEEPOOPOOOOOO')
 
 
-def echo(t):
+def echo(text):
     """
     Echoes the message after the command by <multiplier> number of times.
     Invoked with "echo 2x <message>" where 2x is the multiplier; can be up to 20.
-    :param t: text from latest group message
+    :param text: raw text from latest group message
     :return:
     """
-    indexofx = t.find('x')
-    multiplier = int(t[5:indexofx])
+    indexofx = text.find('x')
+    multiplier = int(text[5:indexofx])
     if multiplier > 10:
         multiplier = 10     # cap the number of repeats at 20x
-    text = t[indexofx+2:]
+    message_to_repeat = text[indexofx+2:]
     for i in range(multiplier):
-        c.postfrombot(text)
+        c.postfrombot(message_to_repeat)
         # c.makeCall('bots', 'Post', text=text)
 
 
-def postpic(filename):
+def postpic(fpicture_binary):
     """
     Uploads & posts a picture, with its filename as the parameter.
     Picture file must be in same directory as firstblood.py.
-    :param filename: string, the filename of the desired image to be posted
+    :param fpicture_binary: file-like object of the desired image to be posted
     :return:
     """
-    with open(filename, 'rb') as picfile:
-        url = c.get_pic_upload_url(picfile)
-        return c.postfrombot(" ", picture_url=url)
+    url = c.get_pic_upload_url(fpicture_binary)
+    c.postfrombot(" ", picture_url=url)
+
+
+
+def chart(text):
+    split = text.split()
+
+    symbol = split[1]
+
+    fchartpic = tvbot.get_chart_screenshot_binary(symbol)
+    postpic(fchartpic)
