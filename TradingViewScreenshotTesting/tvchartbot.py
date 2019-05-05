@@ -89,11 +89,10 @@ class TradingViewScraper:
         return screenshot_binary
 
 
-tv = None
-tv = TradingViewScraper()
+# tv = TradingViewScraper()
 # try:
 #     tv = TradingViewScraper()
 # except Exception:
 #     print("creating tv object failed")
 
-bindata = tv.get_chart_screenshot_binary("ltcusd")
+# bindata = tv.get_chart_screenshot_binary("ltcusd")
