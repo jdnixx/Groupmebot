@@ -7,7 +7,7 @@ GroupMe API to ping with new messages from the group
 Flask parts were made almost entirely with this tutorial:
 http://www.apnorton.com/blog/2017/02/28/How-I-wrote-a-Groupme-Chatbot-in-24-hours/
 """
-import firstblood as bot
+import firstblood
 from flask import Flask, request
 app = Flask(__name__)
 
@@ -24,7 +24,7 @@ def webhook():
     if data['name'] != "firstblood":
         # msg = 'You (name={}) sent "{}"'.format(data['name'], data['text'])
         # send_message(msg)
-        bot.incoming_message(data)
+        firstblood.incoming_message(data)
 
     return "ok", 200
 
