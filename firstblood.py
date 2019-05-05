@@ -39,6 +39,7 @@ BOTID = os.environ.get('BOT_ID')
 c = GroupMeApiClient(TOKEN, BOTID)
 
 tvbot = TradingViewScraper()
+tvbot.start()
 
 
 def incoming_message(data):

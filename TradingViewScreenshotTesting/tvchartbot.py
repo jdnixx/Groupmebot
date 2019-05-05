@@ -28,6 +28,8 @@ url = "https://www.tradingview.com/chart/UzJ9PCY8/#"
 class TradingViewScraper:
     def __init__(self):
         print("TradingViewScraper IS INIT'ing")
+
+    def start(self):
         ### OPENING A HEADLESS BROWSER ###
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument("--headless")
