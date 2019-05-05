@@ -37,7 +37,7 @@ BOTID = os.environ.get('BOT_ID')
 
 c = GroupMeApiClient(TOKEN, BOTID)
 
-tvbot = TradingViewScraper()
+# tvbot = TradingViewScraper()
 
 
 def incoming_message(data):
@@ -113,10 +113,10 @@ def postpic(fpicture_binary):
 
 
 
-def chart(text):
-    split = text.split()
-
-    symbol = split[1]
-
-    fchartpic = tvbot.get_chart_screenshot_binary(symbol)
-    postpic(fchartpic)
+# def chart(text):
+#     split = text.split()
+#
+#     symbol = split[1]
+#
+#     fchartpic = tvbot.get_chart_screenshot_binary(symbol)
+#     postpic(fchartpic)
