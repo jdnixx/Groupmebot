@@ -36,9 +36,9 @@ class TradingViewScraper:
         # chrome_options.add_argument("--headless")
         chrome_options.add_argument(f"--window-size=800,600")
         chrome_options.add_argument("--hide-scrollbars")
-        self.driver = webdriver.Chrome("/Program Files/chromedriver", chrome_options=chrome_options)
-        # chrome_options.binary_location = '/app/.apt/usr/bin/google-chrome'
-        # self.driver = webdriver.Chrome(chrome_options=chrome_options)
+        # self.driver = webdriver.Chrome("/Program Files/chromedriver", chrome_options=chrome_options)
+        chrome_options.binary_location = '/app/.apt/usr/bin/google-chrome'
+        self.driver = webdriver.Chrome(chrome_options=chrome_options)
 
         self.driver.get(url)
 
