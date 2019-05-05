@@ -45,7 +45,6 @@ class TradingViewScraper:
         login = self.driver.find_element_by_class_name('js-login-link')
         print("Login:")
         print(login)
-        login.click()
 
         # wait for js login prompt
         username = WebDriverWait(self.driver, 1, 0.05).until(
