@@ -8,6 +8,7 @@ import os
 from ApiClient.client import GroupMeApiClient
 from TradingViewScreenshotTesting.tvchartbot import TradingViewScraper
 
+
 GROUP_ID = 12375272     # nerd chat
 
 """
