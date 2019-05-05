@@ -6,8 +6,7 @@ Mostly for testing API connectivity & commands
 import os
 # import GroupmeClient.client
 from ApiClient.client import GroupMeApiClient
-from TradingViewScreenshotTesting.tvchartbot import TradingViewScraper
-
+# from TradingViewScreenshotTesting.tvchartbot import TradingViewScraper
 
 GROUP_ID = 12375272     # nerd chat
 
