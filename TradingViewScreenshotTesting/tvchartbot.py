@@ -47,7 +47,7 @@ class TradingViewScraper:
         print(login)
 
         # wait for js login prompt
-        username = WebDriverWait(self.driver, 1, 0.05).until(
+        username = WebDriverWait(self.driver, 5, 0.05).until(
             EC.presence_of_element_located((By.NAME, 'username')))
         print("Username:")
         print(username)
