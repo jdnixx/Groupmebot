@@ -76,6 +76,7 @@ class TradingViewScraper:
         print("tickerinput:")
         print(tickerinput)
 
+        tickerinput.clear()
         tickerinput.send_keys(sym)
 
         # drop-down of matching symbols
