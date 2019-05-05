@@ -28,16 +28,17 @@ url = "https://www.tradingview.com/chart/UzJ9PCY8/#"
 class TradingViewScraper:
     def __init__(self):
         print("TradingViewScraper IS INIT'ing")
+        self.driver = None
 
     def start(self):
         ### OPENING A HEADLESS BROWSER ###
         chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_argument("--headless")
+        # chrome_options.add_argument("--headless")
         chrome_options.add_argument(f"--window-size=800,600")
         chrome_options.add_argument("--hide-scrollbars")
-        # self.driver = webdriver.Chrome("/Program Files/chromedriver", options=chrome_options)
-        chrome_options.binary_location = '/app/.apt/usr/bin/google-chrome'
-        self.driver = webdriver.Chrome(chrome_options=chrome_options)
+        self.driver = webdriver.Chrome("/Program Files/chromedriver", chrome_options=chrome_options)
+        # chrome_options.binary_location = '/app/.apt/usr/bin/google-chrome'
+        # self.driver = webdriver.Chrome(chrome_options=chrome_options)
 
         self.driver.get(url)
 
@@ -47,6 +48,7 @@ class TradingViewScraper:
         login = self.driver.find_element_by_class_name('js-login-link')
         print("Login:")
         print(login)
+        login.click()
 
         # wait for js login prompt
         username = WebDriverWait(self.driver, 5, 0.05).until(
