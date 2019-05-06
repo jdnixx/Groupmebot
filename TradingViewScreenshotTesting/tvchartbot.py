@@ -7,6 +7,7 @@ Original script idea from:
 https://stackoverflow.com/questions/51653344/taking-screenshot-of-whole-page-with-python-selenium-and-firefox-or-chrome-headl
 """
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -68,6 +69,19 @@ class TradingViewScraper:
         password.send_keys(PASS)
         password.send_keys(Keys.RETURN)
         print("Login info entered")
+
+        print("Sleeping for 4....")
+        time.sleep(4)
+
+
+
+        ### CHECK AUTHENTICATION ERROR MESSAGE ###
+        try:
+            connect = self.driver.find_element_by_class_name('js-dialog__action-click')
+            if connect:
+                connect.click()
+        except NoSuchElementException:
+            pass
 
 
     def get_chart_screenshot_binary(self, parsedinput):
@@ -166,10 +180,10 @@ class TradingViewScraper:
 
 
 
-# tv = TradingViewScraper()
-# tv.testing = True
-# tv.start()
-# bindata = tv.get_chart_screenshot_binary("ltcusd bitfinex 1d")
+tv = TradingViewScraper()
+tv.testing = True
+tv.start()
+bindata = tv.get_chart_screenshot_binary("ltcusd bitfinex 1d")
 #
 # churt = tv.driver.find_element_by_class_name("chart-container")
 # churt.screenshot('screen_shot_chart.png')
