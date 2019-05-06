@@ -1,1 +1,1 @@
-web: gunicorn app:app --log-file=-
+web: gunicorn "app:app.run(use_reloader=False)" --log-file=-

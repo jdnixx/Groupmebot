@@ -78,7 +78,7 @@ class TradingViewScraper:
         time.sleep(4)
 
 
-
+    def get_chart_screenshot_binary(self, parsedinput):
         ### CHECK AUTHENTICATION ERROR MESSAGE ###
         try:
             max_device_dialog = self.driver.find_element_by_class_name('tv-dialog__modal-container')
@@ -88,7 +88,6 @@ class TradingViewScraper:
             print("No max_devices dialog box found.")
 
 
-    def get_chart_screenshot_binary(self, parsedinput):
         # first, resolve the user's input
         rawsym = parsedinput[0]
         propersym = rawsym
