@@ -41,7 +41,7 @@ class TradingViewScraper:
         ### OPENING A HEADLESS BROWSER ###
         chrome_options = webdriver.ChromeOptions()
         # chrome_options.add_argument("--headless")
-        chrome_options.add_argument(f"--window-size=800,800")
+        chrome_options.add_argument(f"--window-size=800,640")
         chrome_options.add_argument("--hide-scrollbars")
         if not self.testing:
             chrome_options.binary_location = '/app/.apt/usr/bin/google-chrome'
@@ -121,9 +121,12 @@ class TradingViewScraper:
         print("symbolinput:")
         print(symbolinput)
 
+        self.max_devices_dialog_check()
+
         try:
             symbolinput.click()
         except ElementClickInterceptedException:
+            print(ElementClickInterceptedException)
             return self.driver.get_screenshot_as_png()
             self.max_devices_dialog_check()
 
