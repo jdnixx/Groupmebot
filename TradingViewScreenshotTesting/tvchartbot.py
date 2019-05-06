@@ -124,6 +124,7 @@ class TradingViewScraper:
         try:
             symbolinput.click()
         except ElementClickInterceptedException:
+            return self.driver.get_screenshot_as_png()
             self.max_devices_dialog_check()
 
         symbolinput.click()
@@ -185,9 +186,8 @@ class TradingViewScraper:
         ActionChains(self.driver).send_keys(Keys.RETURN).perform()
 
         ### SCREENSHOT ###
-        screenshot_binary = self.driver.get_screenshot_as_png()
         # self.driver.close()
-        return screenshot_binary
+        return self.driver.get_screenshot_as_png()
 
 
 
