@@ -24,6 +24,7 @@ USER = "groupmebot"
 PASS = "groupmebot1"
 
 
+testing = False
 # testing = True
 
 
