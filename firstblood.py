@@ -65,8 +65,18 @@ def incoming_message(data):
         chart(data['text'])
 
 
+def postfrombot(message):
+    c.postfrombot(message)
 
-
+def postpic(fpicture_binary):
+    """
+    Uploads & posts a picture, with its filename as the parameter.
+    Picture file must be in same directory as firstblood.py.
+    :param fpicture_binary: file-like object of the desired image to be posted
+    :return:
+    """
+    url = c.get_pic_upload_url(fpicture_binary)
+    c.postfrombot(" ", picture_url=url)
 
 
 def respond_rideoncowboy():
@@ -103,22 +113,16 @@ def echo(text):
         # c.makeCall('bots', 'Post', text=text)
 
 
-def postpic(fpicture_binary):
-    """
-    Uploads & posts a picture, with its filename as the parameter.
-    Picture file must be in same directory as firstblood.py.
-    :param fpicture_binary: file-like object of the desired image to be posted
-    :return:
-    """
-    url = c.get_pic_upload_url(fpicture_binary)
-    c.postfrombot(" ", picture_url=url)
-
-
-
 def chart(text):
-    split = text.split()
+    splittext = text.strip().lower().split()[1:4]
+    if len(splittext) is 0:
+        return postfrombot("Error: you must provide an argument. Type 'c help' for a list of commands.")
+    elif splittext[0] is "help":
+        return postfrombot("Chart command: 'c <ticker> <exchange> <time>\n"
+                           "Examples:   'c ltc'\n"
+                           "            'c ltcbtc binance'\n"
+                           "            'c xrpusd bitfinex 1d'\n"
+                           "            'c xbtusd bitmex 15m'")
 
-    symbol = split[1]
-
-    fchartpic = tvbot.get_chart_screenshot_binary(symbol)
+    fchartpic = tvbot.get_chart_screenshot_binary(splittext)
     postpic(fchartpic)

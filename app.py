@@ -10,7 +10,7 @@ http://www.apnorton.com/blog/2017/02/28/How-I-wrote-a-Groupme-Chatbot-in-24-hour
 import firstblood
 from flask import Flask, request
 app = Flask(__name__)
-
+print(app.config)
 
 @app.route("/", methods=['POST','GET'])
 def webhook():
@@ -29,10 +29,5 @@ def webhook():
     return "ok", 200
 
 
-# (use for debugging; GET only)
-# @app.route("/")
-# def hello():
-#     return "Hello world!"
-
-if __name__ == '__main__':
-    app.run()
+# if __name__ == '__main__':
+#     app.run(use_reloader=False)
