@@ -24,6 +24,9 @@ USER = "groupmebot"
 PASS = "groupmebot1"
 
 
+testing = True
+
+
 url = "https://www.tradingview.com/chart/UzJ9PCY8/#"
 
 
@@ -77,11 +80,11 @@ class TradingViewScraper:
 
         ### CHECK AUTHENTICATION ERROR MESSAGE ###
         try:
-            connect = self.driver.find_element_by_class_name('js-dialog__action-click')
-            if connect:
-                connect.click()
+            max_device_dialog = self.driver.find_element_by_class_name('tv-dialog__modal-container')
+            connect = max_device_dialog.find_element_by_css_selector('[data-name=no]')
+            connect.click()
         except NoSuchElementException:
-            pass
+            print("No max_devices dialog box found.")
 
 
     def get_chart_screenshot_binary(self, parsedinput):
@@ -180,11 +183,12 @@ class TradingViewScraper:
 
 
 
-# tv = TradingViewScraper()
-# tv.testing = True
-# tv.start()
-# bindata = tv.get_chart_screenshot_binary("ltcusd bitfinex 1d")
-#
-# churt = tv.driver.find_element_by_class_name("chart-container")
-# churt.screenshot('screen_shot_chart.png')
-# print("Screenshot of chart saved")
+if testing is True:
+    tv = TradingViewScraper()
+    tv.testing = True
+    tv.start()
+    bindata = tv.get_chart_screenshot_binary("ltcusd bitfinex 1d")
+
+    churt = tv.driver.find_element_by_class_name("chart-container")
+    churt.screenshot('screen_shot_chart.png')
+    print("Screenshot of chart saved")
