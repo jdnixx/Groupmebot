@@ -24,7 +24,7 @@ USER = "groupmebot"
 PASS = "groupmebot1"
 
 
-testing = True
+# testing = True
 
 
 url = "https://www.tradingview.com/chart/UzJ9PCY8/#"
