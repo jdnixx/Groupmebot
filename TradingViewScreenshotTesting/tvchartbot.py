@@ -184,12 +184,12 @@ class TradingViewScraper:
 
 
 
-if testing is True:
-    tv = TradingViewScraper()
-    tv.testing = True
-    tv.start()
-    bindata = tv.get_chart_screenshot_binary("ltcusd bitfinex 1d")
-
-    churt = tv.driver.find_element_by_class_name("chart-container")
-    churt.screenshot('screen_shot_chart.png')
-    print("Screenshot of chart saved")
+# if testing is True:
+#     tv = TradingViewScraper()
+#     tv.testing = True
+#     tv.start()
+#     bindata = tv.get_chart_screenshot_binary("ltcusd bitfinex 1d")
+#
+#     churt = tv.driver.find_element_by_class_name("chart-container")
+#     churt.screenshot('screen_shot_chart.png')
+#     print("Screenshot of chart saved")
