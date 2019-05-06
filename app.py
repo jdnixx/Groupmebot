@@ -25,7 +25,6 @@ def webhook():
         # msg = 'You (name={}) sent "{}"'.format(data['name'], data['text'])
         # send_message(msg)
         firstblood.incoming_message(data)
-
     return "ok", 200
 
 

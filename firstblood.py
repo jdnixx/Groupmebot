@@ -5,6 +5,7 @@ Mostly for testing API connectivity & commands
 """
 import os
 # import GroupmeClient.client
+import chartbot
 from ApiClient.client import GroupMeApiClient
 from TradingViewScreenshotTesting.tvchartbot import TradingViewScraper
 
@@ -35,8 +36,10 @@ BOT_ID
 """
 TOKEN = os.environ.get('TOKEN')
 BOTID = os.environ.get('BOT_ID')
+CHARTBOTID = os.environ.get('CHARTBOT_ID')
 
 c = GroupMeApiClient(TOKEN, BOTID)
+c_chartbot = GroupMeApiClient(TOKEN, CHARTBOTID)
 
 tvbot = TradingViewScraper()
 tvbot.start()
@@ -49,20 +52,40 @@ def incoming_message(data):
     :param data: dict of JSON data from GroupMe API's POST request
     :return:
     """
-    # parse message
-    msg = data['text'].strip().lower()
 
-    # simple mirror response commands
-    if msg == "ride on cowboy":
-        respond_rideoncowboy()
-    if msg == "jeremy is a":
-        jeremyisa()
-    # echo command
-    if msg.startswith('echo'):
-        echo(data['text'])
-    # Tradingview Chart screenshot
-    if msg.startswith('c '):
-        chart(data['text'])
+    # Chartbot
+    if data['name'] != "Chartbot" and data['group_id'] == "36792321":
+        # parse message
+        msg = data['text'].strip().lower()
+
+        if msg.startswith('c '):
+            splittext = data['text'].strip().lower().split()[1:4]
+            if len(splittext) is 0:
+                return c_chartbot.postfrombot("Error: you must provide an argument. Type 'c help' for a list of commands.")
+            elif splittext[0] is "help":
+                return c_chartbot.postfrombot("Chart command: 'c <ticker> <exchange> <time>\n"
+                                   "Examples:   'c ltc'\n"
+                                   "            'c ltcbtc binance'\n"
+                                   "            'c xrpusd bitfinex 1d'\n"
+                                   "            'c xbtusd bitmex 15'")
+            fchartpic = tvbot.get_chart_screenshot_binary(splittext)
+            url = c_chartbot.get_pic_upload_url(fchartpic)
+            c_chartbot.postfrombot(" ", picture_url=url)
+    else:
+        # parse message
+        msg = data['text'].strip().lower()
+
+        # simple mirror response commands
+        if msg == "ride on cowboy":
+            respond_rideoncowboy()
+        if msg == "jeremy is a":
+            jeremyisa()
+        # echo command
+        if msg.startswith('echo'):
+            echo(data['text'])
+        # Tradingview Chart screenshot
+        if msg.startswith('c '):
+            chart(data['text'])
 
 
 def postfrombot(message):
