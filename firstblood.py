@@ -4,8 +4,6 @@ FIRSTBLOOD - first GroupMe API bot
 Mostly for testing API connectivity & commands
 """
 import os
-# import GroupmeClient.client
-import chartbot
 from ApiClient.client import GroupMeApiClient
 from TradingViewScreenshotTesting.tvchartbot import TradingViewScraper
 

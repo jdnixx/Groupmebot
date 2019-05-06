@@ -7,7 +7,7 @@ Original script idea from:
 https://stackoverflow.com/questions/51653344/taking-screenshot-of-whole-page-with-python-selenium-and-firefox-or-chrome-headl
 """
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -78,7 +78,7 @@ class TradingViewScraper:
         time.sleep(4)
 
 
-    def get_chart_screenshot_binary(self, parsedinput):
+    def max_devices_dialog_check(self):
         ### CHECK AUTHENTICATION ERROR MESSAGE ###
         try:
             max_device_dialog = self.driver.find_element_by_class_name('tv-dialog__modal-container')
@@ -87,6 +87,9 @@ class TradingViewScraper:
         except NoSuchElementException:
             print("No max_devices dialog box found.")
 
+
+    def get_chart_screenshot_binary(self, parsedinput):
+        self.max_devices_dialog_check()
 
         # first, resolve the user's input
         rawsym = parsedinput[0]
@@ -117,6 +120,11 @@ class TradingViewScraper:
             EC.presence_of_element_located((By.CLASS_NAME, 'input-3lfOzLDc-')))
         print("symbolinput:")
         print(symbolinput)
+
+        try:
+            symbolinput.click()
+        except ElementClickInterceptedException:
+            self.max_devices_dialog_check()
 
         symbolinput.click()
         # WebDriverWait(self.driver, 10, 0.05).until(
