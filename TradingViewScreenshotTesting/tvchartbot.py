@@ -7,11 +7,13 @@ Original script idea from:
 https://stackoverflow.com/questions/51653344/taking-screenshot-of-whole-page-with-python-selenium-and-firefox-or-chrome-headl
 """
 from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 # from PIL import Image
+import time
 
 
 print('STARTING')
@@ -68,16 +70,13 @@ class TradingViewScraper:
         print("Login info entered")
 
 
-    def get_chart_screenshot_binary(self, parsedinput, exchange=None):
+    def get_chart_screenshot_binary(self, parsedinput):
         # first, resolve the user's input
         rawsym = parsedinput[0]
-
-        sym_name = None
-        sym_pair = "btc"
         propersym = rawsym
 
         # add "USD" for the big blue chips
-        if rawsym is 'eth' or 'btc' or 'xbt':
+        if rawsym == 'eth' or rawsym == 'btc' or rawsym == 'xbt':
             propersym += 'usd'
 
         # if not sym.endswith('btc'): # ltcusdt
@@ -98,58 +97,80 @@ class TradingViewScraper:
 
         # symbol input box (top-left)
         symbolinput = WebDriverWait(self.driver, 10, 0.05).until(
-            EC.visibility_of_element_located((By.CLASS_NAME, 'input-3lfOzLDc-')))
+            EC.presence_of_element_located((By.CLASS_NAME, 'input-3lfOzLDc-')))
         print("symbolinput:")
         print(symbolinput)
 
-        symbolinput.clear()
-        for char in propersym:
-            symbolinput.send_keys(char)
-        # symbolinput.send_keys(propersym)
+        symbolinput.click()
+        # WebDriverWait(self.driver, 10, 0.05).until(
+        #     EC.presence_of_element_located((By.CLASS_NAME, 'isExpanded-1pdStI5Z-')))
+        symbolinput.send_keys(Keys.CONTROL, 'a', Keys.BACKSPACE)
 
+        ### EXCHANGE ###
 
-        ### SELECTING THE RIGHT SYMBOL ###
-
-        # entire drop-down table of matching symbols
-        symboleditpopup = WebDriverWait(self.driver, 10, 0.05).until(
-            EC.visibility_of_element_located((By.CLASS_NAME, 'symbol-edit-popup'))
-        )
-        print(symboleditpopup)
-        symboleditpopup.screenshot('symboleditpopup.png')
-
-        # the symboleditpopup menu is up, but may be still loading
-        # these lines might not be visible yet
-
-        table_of_results = symboleditpopup.find_elements_by_css_selector('tr.symbol-edit-popup')
-        target = table_of_results[0]
+        # THIS IS ALSO WHERE THE PROBLEM IS ###########################################################
 
         # if exchange is specified, loop through to find the correct line
         if len(parsedinput) > 1:    # exchange
             exchange = parsedinput[1]
-            for line in table_of_results:
-                name_and_exchange = line.get_attribute('data-item-ticker')
-                print(name_and_exchange)    #
-                if "lol" is exchange:
-                    # target = line
-                    break
+            symbolinput.send_keys(exchange, ':')
 
+        # finally, enter symbol
+        symbolinput.send_keys(propersym)
+        symbolinput.send_keys(Keys.RETURN)
+
+
+
+        # ### SELECTING THE RIGHT SYMBOL ###
+        #
+        # # entire drop-down table of matching symbols
+        # symboleditpopup = WebDriverWait(self.driver, 10, 0.05).until(
+        #     EC.visibility_of_element_located((By.CLASS_NAME, 'symbol-edit-popup'))
+        # )
+        # print(symboleditpopup)
+        # symboleditpopup.screenshot('symboleditpopup.png')
+        #
+        # # the symboleditpopup menu is up, but may be still loading
+        # # these lines might not be visible yet
+        #
+        # table_of_results = symboleditpopup.find_elements_by_css_selector('tr.symbol-edit-popup')
+        # target = table_of_results[0]
+        #
+        # # if exchange is specified, loop through to find the correct line
+        # if len(parsedinput) > 1:    # exchange
+        #     exchange = parsedinput[1]
+        #     for line in table_of_results:
+        #         name_and_exchange = line.get_attribute('data-item-ticker')
+        #         print(name_and_exchange)    #
+        #         if "lol" is exchange:
+        #             # target = line
+        #             break
+        #
         # target.click()
 
+        # locate the main chart element, for screenshot & Key-sending use
+        # chart_itself = self.driver.find_element_by_class_name("chart-container")
+
+        ### CHANGING TIME INTERVAL ###
+        if len(parsedinput) > 2:  # time interval
+            interval = parsedinput[2]
+            ActionChains(self.driver).send_keys(',', interval).perform()
+        else:
+            ActionChains(self.driver).send_keys(',', '4h').perform()
+        ActionChains(self.driver).send_keys(Keys.RETURN).perform()
 
         ### SCREENSHOT ###
         screenshot_binary = self.driver.get_screenshot_as_png()
         # self.driver.close()
-        return screenshot_binary, symboleditpopup
+        return screenshot_binary
 
 
 
-tv = TradingViewScraper()
-tv.testing = True
-tv.start()
-bindata, SEP = tv.get_chart_screenshot_binary("ltcusd bitfinex 1d")
-
-tv.driver.save_screenshot('screen_shot.png')
-print("Screenshot saved")
-churt = tv.driver.find_element_by_class_name("chart-container")
-churt.screenshot('screen_shot_chart.png')
-print("Screenshot of chart saved")
+# tv = TradingViewScraper()
+# tv.testing = True
+# tv.start()
+# bindata = tv.get_chart_screenshot_binary("ltcusd bitfinex 1d")
+#
+# churt = tv.driver.find_element_by_class_name("chart-container")
+# churt.screenshot('screen_shot_chart.png')
+# print("Screenshot of chart saved")

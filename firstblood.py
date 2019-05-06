@@ -122,7 +122,7 @@ def chart(text):
                            "Examples:   'c ltc'\n"
                            "            'c ltcbtc binance'\n"
                            "            'c xrpusd bitfinex 1d'\n"
-                           "            'c xbtusd bitmex 15m'")
+                           "            'c xbtusd bitmex 15'")
 
     fchartpic = tvbot.get_chart_screenshot_binary(splittext)
     postpic(fchartpic)
